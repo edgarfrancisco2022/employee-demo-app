@@ -16,7 +16,7 @@ password: password
 
 
 #### form logout
-endpoint: /home
+endpoint: /
 
 
 
