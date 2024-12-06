@@ -1,7 +1,7 @@
 # employee-demo-app
 
 
-#### login
+#### form login
 username: user  
 password: password  
 url: http://localhost:8080/login
@@ -15,7 +15,7 @@ password: password
 
 
 
-#### logout
+#### form logout
 endpoint: /home
 
 
