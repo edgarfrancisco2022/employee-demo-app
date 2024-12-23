@@ -1,9 +1,13 @@
-package com.edgarperez.employee_demo_app;
+package com.edgarperez.employee_demo_app.controller;
 
+import com.edgarperez.employee_demo_app.service.EmployeeService;
+import com.edgarperez.employee_demo_app.dto.ResponseDTO;
+import com.edgarperez.employee_demo_app.model.Employee;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(
-        name = "Employee Demo App",
+        name = "Employee Controller",
         description = "Employee CRUD REST APIs"
 )
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
     private EmployeeService employeeService;
@@ -34,16 +38,14 @@ public class EmployeeController {
                     responseCode = "200",
                     description = "HTTP Status OK"
             )
-    }
-    )
-    @GetMapping("/get")
-    public ResponseEntity<ResponseDto> getAllEmployees() {
+    })
+    @GetMapping()
+    public ResponseEntity<ResponseDTO> getAllEmployees() {
         List<Employee> employeeList = employeeService.getAllEmployees();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new ResponseDto("Employees retrieved successfully", employeeList));
+                .body(new ResponseDTO("Employees retrieved successfully", employeeList));
     }
-
 
     @Operation(
             summary = "Get Employee by id",
@@ -53,15 +55,18 @@ public class EmployeeController {
             @ApiResponse(
                     responseCode = "200",
                     description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "HTTP Status NOT_FOUND"
             )
-    }
-    )
-    @GetMapping("/get/{id}")
-    public ResponseEntity<ResponseDto> getEmployee(@PathVariable Long id) {
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDTO> getEmployee(@PathVariable Long id) {
         Employee employee = employeeService.getEmployeeById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new ResponseDto("Employee retrieved successfully", employee));
+                .body(new ResponseDTO("Employee retrieved successfully", employee));
     }
 
 
@@ -73,14 +78,18 @@ public class EmployeeController {
             @ApiResponse(
                     responseCode = "201",
                     description = "HTTP Status CREATED"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP Status BAD_REQUEST"
             )
     })
-    @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createEmployee(@RequestBody Employee employee) {
+    @PostMapping()
+    public ResponseEntity<ResponseDTO> createEmployee(@Valid @RequestBody Employee employee) {
         Employee savedEmployee = employeeService.createEmployee(employee);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDto("Employee created successfully", savedEmployee));
+                .body(new ResponseDTO("Employee created successfully", savedEmployee));
     }
 
 
@@ -92,14 +101,18 @@ public class EmployeeController {
             @ApiResponse(
                     responseCode = "200",
                     description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "HTTP Status NOT_FOUND"
             )
     })
-    @PutMapping("/update/{id}")
-    public ResponseEntity<ResponseDto> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseDTO> updateEmployee(@PathVariable Long id, @Valid @RequestBody Employee employee) {
         Employee updatedEmployee = employeeService.updateEmployee(id, employee);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new ResponseDto("Employee updated successfully", updatedEmployee));
+                .body(new ResponseDTO("Employee updated successfully", updatedEmployee));
     }
 
 
@@ -111,14 +124,17 @@ public class EmployeeController {
             @ApiResponse(
                     responseCode = "204",
                     description = "HTTP Status NO_CONTENT"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "HTTP Status NOT_FOUND"
             )
-    }
-    )
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseDto> deleteEmployee(@PathVariable Long id) {
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseDTO> deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
-                .body(new ResponseDto("Employee deleted successfully", null));
+                .body(new ResponseDTO("Employee deleted successfully", null));
     }
 }

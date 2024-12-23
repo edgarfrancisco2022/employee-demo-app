@@ -1,5 +1,7 @@
-package com.edgarperez.employee_demo_app;
+package com.edgarperez.employee_demo_app.service;
 
+import com.edgarperez.employee_demo_app.model.Employee;
+import com.edgarperez.employee_demo_app.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

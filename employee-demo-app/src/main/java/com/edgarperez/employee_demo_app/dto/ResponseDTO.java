@@ -1,10 +1,10 @@
-package com.edgarperez.employee_demo_app;
+package com.edgarperez.employee_demo_app.dto;
 
-public class ResponseDto<T> {
+public class ResponseDTO<T> {
     private String message;
     private T data;
 
-    public ResponseDto(String message, T data) {
+    public ResponseDTO(String message, T data) {
         this.message = message;
         this.data = data;
     }
