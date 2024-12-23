@@ -1,20 +1,31 @@
-package com.edgarperez.employee_demo_app;
+package com.edgarperez.employee_demo_app.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
+    @NotBlank(message = "Name cannot be empty")
     private String name;
+
+    @NotBlank(message = "Email cannot be empty")
+    @Email(message = "Invalid email format")
     private String email;
+
+    @Positive
     private Integer age;
+
+    @Positive
     private Double salary;
 
     public Employee() {

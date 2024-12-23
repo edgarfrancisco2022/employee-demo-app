@@ -1,5 +1,7 @@
-package com.edgarperez.employee_demo_app;
+package com.edgarperez.employee_demo_app.controller;
 
+import com.edgarperez.employee_demo_app.model.Employee;
+import com.edgarperez.employee_demo_app.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
