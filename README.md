@@ -1,29 +1,27 @@
 # employee-demo-app
 
+#### Register new user
+POST http://localhost:8080/auth/addNewUser
+{
+    "name": "user",
+    "email": "user@gmail.com",
+    "password": "password",
+    "roles": "ROLE_USER,ROLE_ADMIN"
+}
 
-#### form login
-username: user  
-password: password  
-url: http://localhost:8080/login
+#### Generate JWT 
+POST http://localhost:8080/auth/generateToken
+{
+    "username": "user",
+    "password": "password"
+}
 
-
-
-#### login with Postman
-Add request body using x-www-form-urlencoded with the following key value pairs:  
-username: user  
-password: password  
-
-
-
-#### form logout
-endpoint: /
-
-
+#### Add JWT as an Authorization header with the value starting with the word 'Bearer '
+Example:
+Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGdhciIsImlhdCI6MTczNDkyNTE5MSwiZXhwIjoxNzM0OTI2OTkxfQ.qTEuqVYI8WYXYR6JczzVTZJU9Kk95KYW5s9QXvGMwX0
 
 #### Swagger
 endpoint: /swagger-ui.html
-
-
 
 #### H2 console
 username: sa  
