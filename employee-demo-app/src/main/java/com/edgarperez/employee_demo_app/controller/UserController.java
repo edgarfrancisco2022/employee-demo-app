@@ -29,14 +29,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class UserController {
 
-    @Autowired
+
     private UserInfoService service;
-
-    @Autowired
     private JwtService jwtService;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
+
+    public UserController(UserInfoService service, JwtService jwtService, AuthenticationManager authenticationManager) {
+        this.service = service;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+    }
 
     @Operation(
             summary = "Welcome endpoint",

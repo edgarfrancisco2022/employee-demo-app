@@ -80,6 +80,7 @@ class EmployeeServiceTest {
     @Test
     void testDeleteEmployee() {
         doNothing().when(repository).deleteById(1L);
+        when(repository.existsById(any())).thenReturn(true);
         service.deleteEmployee(1L);
         verify(repository).deleteById(eq(1L));
     }

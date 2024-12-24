@@ -15,12 +15,12 @@ import java.util.Optional;
 
 @Service
 public class UserInfoService implements UserDetailsService {
-
+    //constructor injection creates circular dependencies problem
     @Autowired
     private UserInfoRepository userInfoRepository;
-
     @Autowired
     private PasswordEncoder encoder;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
